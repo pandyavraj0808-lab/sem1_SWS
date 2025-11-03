@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include<stdlib.h>
+void main()
+{
+    FILE *file;
+    int num, sum = 0, count = 0;
+    float average;
+    file = fopen("numbers.txt", "w");
+    printf("Enter integers (enter -1 to stop)\n");
+    while (1) {
+        printf("Enter an integer: ");
+        scanf("%d", &num);
+        
+        if (num == -1)
+            break;
+
+        fprintf(file,"%d\n", num);
+        count++;
+        sum += num;
+    }
+    fclose(file);
+    file = fopen("numbers.txt", "r");
+    if (file == NULL) 
+    {
+        printf("Error opening the file for reading!\n");
+	exit(1);
+    }
+    printf("\nNumbers read from the file:\n");
+    while (fscanf(file, "%d", &num) != EOF) 
+    {
+        printf("%d ", num);
+    	printf("\n");
+    }
+	if (count > 0) 
+	{
+        average = (float)sum / count;  
+        printf("The average of the numbers is: %.2f\n", average);
+    } 
+    fclose(file);
+}
